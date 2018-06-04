@@ -69,7 +69,6 @@ var oGame = {
 
         // fill in dashes
         for (var i = 0; i < sWord2.length; i++) {
-            alert( guessArray[i]);
             if (sKey2 === sWord2[i]) {
                 
 
