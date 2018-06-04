@@ -1,7 +1,12 @@
 $(document).ready(function() {
 
+var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+$("#letters").append(alphabet) ;
+
 var argArray = [ ] ; var guessArray = [ ] ;  var sWord = "";  var sKey ;
 var iTopicIndex = 0;   var iWordIndex = 0;    var numLives = 3;
+var iCounterCorrect = 0 ;      
+
 
 var oGame = {
     
@@ -43,6 +48,7 @@ var oGame = {
     
         $("#lives").html("You have " + numLives + " lives remaining.") ;
         
+
          //create array to return sWord, indexTopic, indexWord 
          var arrReturn = [arrTopics.indexOf(sTopic), sTopic.indexOf(sWord), sWord, guessArray ] ;
          return arrReturn;
@@ -62,24 +68,38 @@ var oGame = {
   
     check: function() {
         //var sKey1 = "" ; sKey1 = sKey;
-        console.log ("inside check", "sKey1=", sKey, "sWord=", sWord );
-        console.log ("inside check / guessArray=", guessArray);
+        //console.log ("inside check", "sKey1=", sKey, "sWord=", sWord );
+        //console.log ("inside check / guessArray=", guessArray);
 
         // fill in dashes
         for (var i = 0; i < sWord.length; i++) {
             if (sKey == sWord[i]) {
                 guessArray[i] = " " + sWord[i] + " ";                
+                
+                $("#dash").html(guessArray) ;
+
+                iCounterCorrect += 1;   
+                console.log("iCounter=", iCounterCorrect, "guessArray.length=", guessArray.length ); 
+                if ((iCounterCorrect + 1) == guessArray.length) {
+                    $("#lives").html("YOU WIN!!") ;
+                }
                 // how to get $("#dash") @ index and replace with guessArray[i] 
                 // remove alphabet
                 //break;
-                $("#dash").html(guessArray) ;
             }
         } //end for
 
         var j = (sWord.indexOf(sKey));
         if (j === -1) {
             numLives -= 1;
-			 $("#lives").html("You have " + numLives + " lives remaining.") ;
+                        
+            if (numLives == 0) {
+                console.log("inside no life");
+                $("#lives").html("You have no life - PLAY AGAIN!!") ;
+            }
+            else {
+                $("#lives").html("You have " + numLives + " lives remaining.") ;
+            }    
             //comments();
             //animate();
         }   
@@ -108,6 +128,10 @@ document.onkeyup = function(event) {
 
 $("#hint").on("click", function() {
     oGame.getHint(iTopicIndex, iWordIndex);
+}); // end hint 
+
+$("#reset").on("click", function() {
+    location.reload();
 }); // end hint 
 
 }); // end doc ready
