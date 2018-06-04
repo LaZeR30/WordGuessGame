@@ -1,10 +1,7 @@
 $(document).ready(function() {
 
-var argArray = [ , , ] ;
-var guessArray = [ ] ;
-var sWord = "";
-var sKey ;
-var numLives = 3;
+var argArray = [ ] ; var guessArray = [ ] ;  var sWord = "";  var sKey ;
+var iTopicIndex = 0;   var iWordIndex = 0;    var numLives = 3;
 
 var oGame = {
     
@@ -17,8 +14,8 @@ var oGame = {
         var sTopic = arrTopics[Math.floor(Math.random() * arrTopics.length)]; // 0 1 2 
         var sWord = sTopic[Math.floor(Math.random() * sTopic.length)];
         sWord = sWord.replace(/\s/g, "-");
-        console.log("sTopic=", sTopic, "sTopicIndex= ", arrTopics.indexOf(sTopic));
-        console.log("sWord=", sWord, "sWordIndex=", sTopic.indexOf(sWord) );
+        console.log("sTopic=", sTopic, "iTopicIndex= ", arrTopics.indexOf(sTopic));
+        console.log("sWord=", sWord, "iWordIndex=", sTopic.indexOf(sWord) );
         
         if (sTopic === arrTopics[0]) {
             $("#Category").append (" Famous Bands.");
@@ -44,6 +41,8 @@ var oGame = {
             }
         } //end for
     
+        $("#lives").html("You have " + numLives + " lives remaining.") ;
+        
          //create array to return sWord, indexTopic, indexWord 
          var arrReturn = [arrTopics.indexOf(sTopic), sTopic.indexOf(sWord), sWord, guessArray ] ;
          return arrReturn;
@@ -61,41 +60,57 @@ var oGame = {
         $("#Hint").html("Here's a hint: " + arrHints[i][j]);
      } , // end getHint
   
-    check: function(sKey2, sWord2, guessArray) {
+    check: function() {
         //var sKey1 = "" ; sKey1 = sKey;
-        var sDash = guessArray;
-        console.log ("inside oGame.check. sKey2=", sKey2, "sWord2=", sWord2, "sDash=", sDash ); //, "sKey1=", sKey1 );
-        console.log ("inside oGame.check. guessArray=", guessArray[0]);
+        console.log ("inside check", "sKey1=", sKey, "sWord=", sWord );
+        console.log ("inside check / guessArray=", guessArray);
 
         // fill in dashes
-        for (var i = 0; i < sWord2.length; i++) {
-            if (sKey2 === sWord2[i]) {
-                
-
-
+        for (var i = 0; i < sWord.length; i++) {
+            if (sKey == sWord[i]) {
+                guessArray[i] = " " + sWord[i] + " ";                
+                // how to get $("#dash") @ index and replace with guessArray[i] 
+                // remove alphabet
+                //break;
+                $("#dash").html(guessArray) ;
             }
-
         } //end for
+
+        var j = (sWord.indexOf(sKey));
+        if (j === -1) {
+            numLives -= 1;
+			 $("#lives").html("You have " + numLives + " lives remaining.") ;
+            //comments();
+            //animate();
+        }   
+        else {
+            //comments();
+        }
+        
     } //end check
-} ; // end oGame  
+} ; // end oGame 
 
-// need Word and indexes (arrTopics and arrWord)
-
+//MAIN
 argArray = oGame.selectWordAndCategory();
 console.log("argArray", argArray);
-
-sWord = argArray[2] ;
-
-$("#hint").on("click", function() {
-    oGame.getHint(argArray[0], argArray[1] );
-}); // end hint 
+iTopicIndex =  argArray[0];   iWordIndex = argArray[1]; 
+sWord = argArray[2] ;         guessArray = argArray[3] ;
+console.log("iTopicIndex=", iTopicIndex, "iWordIndex=", iWordIndex, "sWord=", sWord);
+console.log("guessArray= ", guessArray);
 
 //JS keypress
+// guessArray must be Global and always Returned to maintain integrity
 document.onkeyup = function(event) {
     sKey = String.fromCharCode(event.keyCode).toLowerCase();
     console.log("Key Press: ", sKey);
-    oGame.check(sKey, sWord, guessArray) ;   
+    oGame.check() ;   
 } 
+
+$("#hint").on("click", function() {
+    oGame.getHint(iTopicIndex, iWordIndex);
+}); // end hint 
+
+}); // end doc ready
 
 //JQ keypress
 /* $(document).keypress(function(event) {
@@ -103,9 +118,6 @@ document.onkeyup = function(event) {
     alert(sKey);
     oGame.check(sKey) ;
 }); */
-
-
-}); // end doc ready
 
 /* arrWords : [
     ["the-beatles", "led-zepplin", "van-halen", "aerosmith", "pink-floyd"],
