@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row" style="border:1px solid"> <!-- header -->
             <div class="col-md">
-                <div id="box1">BasilWebDev</div>
+                <div id="box1" href="https://lazer30.github.io/Bootstrap-Portfolio/index.html">BasilWebDev</div>
             </div>
             <div class="col-md"></div>
             <div class="col-lg-3"><h2>Hangman Game</h2></div>
@@ -24,7 +24,7 @@
                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" id="hint">HINT</a>  
+                                <a class="nav-link hint">HINT</a>  
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="reset">RESET</a>  
@@ -35,36 +35,70 @@
             </div><!-- nav -->
         </div> <!-- header -->
 
-        <div class="row" style="border:1px solid">
-            <div class="col-lg-12">
-                <h4>Press a key to start.  Click HINT for some help.</h4></n>
-                <h5 id="Category">The Category is:</h5>  
-                <h6 id="Hint">---</h6>
-            </div>
-            
-        </div> <!-- row1 -->
-
-        <div class="row" id="main">
-            
-            <div class="col-lg-3" style="border:1px solid">
-                <em>Hangman Body Parts</em>
-            </div>
-
-            <div class="col-lg-6" style="border:1px solid">
-                <h3 id="dash" align="center"></h3> 
+        <div class="row" >  <!-- id="main" row2 -->
+            <div class="col-lg-3" style="border:.5px solid">
                 <br>
-                <h4 id="lives" align="center"></h4>
-
-            </div>    
-            
-            <div class="col-lg-3" style="border:1px solid">
-                <em>Remaining Letters</em>
-                <p id="letters"></p> 
-
+                <h6>Letters Already Used:</h6>
+                <h5 id="letters"></h5>
             </div>
 
-        </div> <!-- row2 -->
+            <!-- MIDDLE COL START -->
+            <div class="col-lg-6" style="border:.5px solid">
+                
+                <div class="row"> <!-- inner row1 -->
+                    <div class="col-lg-12">
+                        <h6 id="title">Press any key to start.</h6></n>
+                        <h5 id="Category"></h5>   
+                    </div>     
+                </div> <!-- inner row1 -->
 
+                <div class="row"> <!-- inner row1 -->
+                    <div class="col-lg-12">
+                        <h4 id="dash" align="center"></h4>
+                    </div>     
+                </div> <!-- inner row1 -->
+
+                <div class="row"> <!-- inner row1 -->
+                    <div class="col-lg-12">
+                        <h5 id="lives" align="center">-</h5>
+                    </div>     
+                </div> <!-- inner row1 -->
+                 
+                <div class="row"> <!-- inner row1 -->
+                    <div class="col-lg-12">
+                        <h5 id="Hint"></h5>
+                    </div>     
+                </div> <!-- inner row1 -->
+                
+                <br><br>
+                <div class="row"> <!-- inner row2 -->
+                    <div class="col-lg-12">
+                        <div class="row"> <!-- inner row3 -->
+                            <div class="col-lg-3"></div>
+
+                            <div class="col-lg-3">
+                                <button type="button" class="btn btn-success hint">Get a Hint</button>
+                            </div>
+                            <div class="col-lg-3">
+                                <button type="button" class="btn btn-primary">Get a New Word</button>
+                            </div>
+
+                            <div class="col-lg-3"></div>
+
+                        </div> <!-- inner row3 -->    
+                    </div>    
+                </div>  <!-- inner row2 -->
+            </div>    
+            <!-- MIDDLE COL END -->
+
+            <div class="col-lg-3" style="border:.5px solid">
+                <br/>
+                <h6>SCORE:</h6> 
+                <p id="numWins"># Times Won: </p>
+                <br>
+                <p id="numLosses"># Times Lost: </p>
+            </div>
+        </div> <!-- row2 -->
 
     <div class="row">
         <div class="col-lg-12">
